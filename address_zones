@@ -1,0 +1,43 @@
+--  12-6-2019 address import
+SELECT
+a.OBJECTID,
+a.ESiteID,
+a.LR,
+a.Post_Code as "Zip",
+a.Long as "GPSX",
+a.Lat as "GPSY",
+a.Add_Number as "HouseNumbe",
+a.HouseInt,
+a.pd as "PreDir",
+a.PT as "PreTyp",
+a.St_Name as "StName", 
+a.St_PosTyp as "SufTyp", 
+a.St_PosDir as "SufDir", 
+a.PrimaryNam,
+a.SiteType as "SiteTypeCo",
+a.T_MailingC,  
+a.MailingCit as "City_Code",
+a.Post_Code as "Zip",
+
+--Zoning
+h.schoolnumb as "SchoolNumb_HS",  
+m.schoolnumb as "SchoolNumb_MD",  
+e.schoolnumb as "SchoolNumb_EL", 
+i.schoolnumb as "SchoolNumb_IB", 
+''           as "SchoolNumb_Career",
+z.schoolnumb as "SchoolNumb_Magnet",
+'' as "SchoolNumb_HP",
+x.par_rate,
+'' as "lincoln_priority",
+a.t_mailingC as "Focus_City"
+
+FROM AddressPoints a
+JOIN HIGHZONE h on a.Long = h.long and a.Lat = h.Lat and a.ParcelNum = h.parcelNum and a.OBJECTID = h.objectid
+JOIN middlezone m on a.long = m.long and a.Lat = m.Lat and a.ParcelNum = m.parcelNum and a.OBJECTID = m.objectid
+JOIN elementaryzone e on a.long = e.long and a.Lat = e.Lat and a.ParcelNum = e.parcelNum and a.OBJECTID = e.objectid
+JOIN ibzone i on a.long = i.long and a.Lat = i.Lat and a.ParcelNum = i.parcelNum and a.OBJECTID = i.objectid
+JOIN magzone z on a.long = z.long and a.Lat = z.Lat and a.ParcelNum = z.parcelNum and a.OBJECTID = z.objectid
+JOIN highmedlow x on a.long = x.long and a.Lat = x.Lat and a.ParcelNum = x.parcelNum and a.OBJECTID = x.objectid
+
+WHERE 1=1
+ORDER BY a.OBJECTID
